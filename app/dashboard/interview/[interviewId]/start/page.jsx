@@ -3,7 +3,7 @@ import { db } from "@/utils/db";
 import { MockInterview } from "@/utils/schema";
 import { eq } from "drizzle-orm";
 import React, { useEffect, useState } from "react";
-import QuestionsSection from "./_components/QuestionsSection";
+import QuestionsSections from "./_components/QuestionsSection";
 import RecordAnswerSection from "./_components/RecordAnswerSection";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -36,7 +36,7 @@ function StartInterview({ params }) {
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         {/* Questions */}
-        <QuestionsSection
+        <QuestionsSections
           activeQuestionIndex={activeQuestionIndex}
           mockInterViewQuestion={mockInterviewQuestion}
         />
