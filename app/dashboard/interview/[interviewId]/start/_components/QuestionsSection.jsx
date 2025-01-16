@@ -2,6 +2,7 @@ import { Lightbulb, Volume2 } from "lucide-react";
 import React from "react";
 
 function QuestionsSections({ activeQuestionIndex, mockInterViewQuestion }) {
+  console.log("moc", mockInterViewQuestion);
   const textToSpeech = (text) => {
     if ("speechSynthesis" in window) {
       const speech = new SpeechSynthesisUtterance(text);
@@ -13,10 +14,11 @@ function QuestionsSections({ activeQuestionIndex, mockInterViewQuestion }) {
     }
   };
 
-  // Ensure mockInterViewQuestion is valid and an array
-  const questions = Array.isArray(mockInterViewQuestion)
-    ? mockInterViewQuestion
+  const questions = Array.isArray(mockInterViewQuestion?.interviewQuestions)
+    ? mockInterViewQuestion.interviewQuestions
     : [];
+
+  console.log("questions", questions);
 
   return (
     <div className="p-5 border rounded-lg my-10">

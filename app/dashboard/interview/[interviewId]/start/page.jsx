@@ -12,25 +12,46 @@ function StartInterview({ params }) {
   const [interviewData, setInterviewData] = useState();
   const [mockInterviewQuestion, setMockInterviewQuestion] = useState();
   const [activeQuestionIndex, setActiveQuestionIndex] = useState(0);
+
+  console.log(mockInterviewQuestion);
+
   useEffect(() => {
-    GetInterviewDetail();
-  }, []);
+    const fetchParamsAndInterviewDetails = async () => {
+      try {
+        // Resolve params if it's a promise
+        const resolvedParams = await Promise.resolve(params);
+
+        // Ensure resolvedParams contains the interviewId
+        if (resolvedParams?.interviewId) {
+          await GetInterviewDetail(resolvedParams.interviewId);
+        } else {
+          console.error("Interview ID not found in params");
+        }
+      } catch (error) {
+        console.error("Error resolving params:", error);
+      }
+    };
+
+    fetchParamsAndInterviewDetails();
+  }, [params]);
 
   /**
    * Used to Get Interview Details by MockId/Interview Id
    */
+  const GetInterviewDetail = async (interviewId) => {
+    try {
+      const result = await db
+        .select()
+        .from(MockInterview)
+        .where(eq(MockInterview.mockId, interviewId));
 
-  const GetInterviewDetail = async () => {
-    const result = await db
-      .select()
-      .from(MockInterview)
-      .where(eq(MockInterview.mockId, params.interviewId));
+      const jsonMockResp = JSON.parse(result[0]?.jsonMockResp);
 
-    const jsonMockResp = JSON.parse(result[0]?.jsonMockResp);
-
-    setMockInterviewQuestion(jsonMockResp);
-
-    setInterviewData(result[0]);
+      setMockInterviewQuestion(jsonMockResp);
+      setInterviewData(result[0]);
+    } catch (error) {
+      console.error("Error fetching interview details:", error);
+    }
   };
   return (
     <div>
@@ -58,7 +79,8 @@ function StartInterview({ params }) {
           </Button>
         )}
 
-        {activeQuestionIndex !== mockInterviewQuestion?.length - 1 && (
+        {activeQuestionIndex !==
+          mockInterviewQuestion?.interviewQuestions.length - 1 && (
           <Button
             onClick={() => setActiveQuestionIndex(activeQuestionIndex + 1)}
           >
@@ -66,7 +88,8 @@ function StartInterview({ params }) {
           </Button>
         )}
 
-        {activeQuestionIndex == mockInterviewQuestion?.length - 1 && (
+        {activeQuestionIndex ==
+          mockInterviewQuestion?.interviewQuestions.length - 1 && (
           <Link
             href={"/dashboard/interview/" + interviewData?.mockId + "/feedback"}
           >

@@ -63,9 +63,9 @@ function RecordAnswerSection({
   }, [userAnswer]);
 
   const UpdateUserAnswerInDb = async () => {
-    console.log(userAnswer);
+    console.log("user",userAnswer);
     setLoading(true);
-    const feedbackPromt = `Question: ${mockInterViewQuestion[activeQuestionIndex]?.question}, User Answer: ${userAnswer}. Based on the question and the user's answer, please provide a rating 1 to 10 for the answer and feedback in the form of areas for improvement, if any. The feedback should in JSON format only nothing else field should be rating and feeback only, in just 3 to 5 lines.`;
+    const feedbackPromt = `Question: ${mockInterViewQuestion?.interviewQuestions[activeQuestionIndex]?.question}, User Answer: ${userAnswer}. Based on the question and the user's answer, please provide a rating 1 to 10 for the answer and feedback in the form of areas for improvement, if any. The feedback should in JSON format only nothing else field should be rating and feeback only, in just 3 to 5 lines.`;
     const result = await chatSession.sendMessage(feedbackPromt);
     const mockJsonResp = result.response
       .text()
@@ -75,8 +75,9 @@ function RecordAnswerSection({
     const JsonFeedbackResp = JSON.parse(mockJsonResp);
     const resp = await db.insert(UserAnswer).values({
       mockIdRef: interviewData?.mockId,
-      question: mockInterViewQuestion[activeQuestionIndex]?.question,
-      correctAns: mockInterViewQuestion[activeQuestionIndex]?.answer,
+      question:
+        mockInterViewQuestion?.interviewQuestions[activeQuestionIndex]?.question,
+      correctAns:mockInterViewQuestion?.interviewQuestions[activeQuestionIndex]?.answer,
       userAns: userAnswer,
       feedback: JsonFeedbackResp?.feedback,
       rating: JsonFeedbackResp?.rating,

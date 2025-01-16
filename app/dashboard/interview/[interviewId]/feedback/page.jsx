@@ -13,28 +13,57 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
 function Feedback({ params }) {
-  const [feedbackList, setFeedbackList] = useState([]);
-  const [avgRating, setAvgRating] = useState();
-  const router = useRouter();
-  useEffect(() => {
-    GetFeedBack();
-  }, []);
-  const GetFeedBack = async () => {
-    const result = await db
-      .select()
-      .from(UserAnswer)
-      .where(eq(UserAnswer.mockIdRef, params.interviewId))
-      .orderBy(UserAnswer.id);
+ const [feedbackList, setFeedbackList] = useState([]);
+ const [avgRating, setAvgRating] = useState(null);
+ const router = useRouter();
 
-    setFeedbackList(result);
-    let getTotalOfRating = result.reduce(
-      (sum, item) => sum + Number(item.rating),
-      0
-    );
-    setAvgRating(Math.round(getTotalOfRating / result?.length));
-    // setAvgRating(result.reduce((sum, item) => sum + Number(item.rating), 0) / result.length)
-    // console.log(avgRating)
-  };
+ useEffect(() => {
+   const fetchFeedback = async () => {
+     try {
+       // Resolve `params` if it's a promise
+       const resolvedParams = await Promise.resolve(params);
+
+       // Check if `interviewId` exists
+       if (resolvedParams?.interviewId) {
+         await GetFeedBack(resolvedParams.interviewId);
+       } else {
+         console.error("Interview ID not found in params");
+       }
+     } catch (error) {
+       console.error("Error resolving params or fetching feedback:", error);
+     }
+   };
+
+   fetchFeedback();
+ }, [params]);
+
+ /**
+  * Fetch feedback from the database and calculate the average rating
+  */
+ const GetFeedBack = async (interviewId) => {
+   try {
+     const result = await db
+       .select()
+       .from(UserAnswer)
+       .where(eq(UserAnswer.mockIdRef, interviewId))
+       .orderBy(UserAnswer.id);
+
+     setFeedbackList(result);
+
+     // Calculate average rating
+     if (result.length > 0) {
+       const totalRating = result.reduce(
+         (sum, item) => sum + Number(item.rating),
+         0
+       );
+       setAvgRating(Math.round(totalRating / result.length));
+     } else {
+       setAvgRating(null); // No ratings available
+     }
+   } catch (error) {
+     console.error("Error fetching feedback:", error);
+   }
+ };
   return (
     <div className="p-10">
       {feedbackList?.length == 0 ? (
