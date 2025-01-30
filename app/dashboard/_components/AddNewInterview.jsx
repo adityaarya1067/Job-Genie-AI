@@ -140,14 +140,20 @@ function AddNewInterview() {
                   >
                     Cancel
                   </Button>
-                  <Button type="submit" disabled={loading}>
+                  <Button
+                    type="submit"
+                    disabled={loading}
+                    className={`${
+                      loading ? "bg-orange-500" : "bg-orange-500"
+                    } text-white`}
+                  >
                     {loading ? (
                       <>
-                        <LoaderCircle className="animate-spin" /> 'Generating
-                        from AI'
+                        <LoaderCircle className="animate-spin text-white" />
+                        <span>Generating from AI</span>
                       </>
                     ) : (
-                      "Start Interview"
+                      <span>Start Interview</span>
                     )}
                   </Button>
                 </div>

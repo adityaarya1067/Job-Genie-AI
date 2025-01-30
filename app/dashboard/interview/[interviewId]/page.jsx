@@ -100,21 +100,29 @@ function Interview({ params }) {
             />
           ) : (
             <>
-              <WebcamIcon className="h-72 w-full my-7 p-20 bg-secondary rounded-lg border" />
-              <Button variant="ghost" onClick={() => setWebCamEnabled(true)}>
-                Enable Web Cam and Microphone
-              </Button>
+              <div className="flex flex-col items-center justify-between">
+                <WebcamIcon className="h-72 w-full my-7 p-20 bg-secondary rounded-lg border" />
+                <Button
+                  variant="ghost"
+                  onClick={() => setWebCamEnabled(true)}
+                  className="mt-4"
+                >
+                  Enable Web Cam and Microphone
+                </Button>
+                <div className="flex justify-end items-end mt-5 bg-orange">
+                  <Link
+                    href={`/dashboard/interview/${interviewId || ""}/start`}
+                  >
+                    <Button>Start Interview</Button>
+                  </Link>
+                </div>
+              </div>
             </>
           )}
         </div>
       </div>
 
       {/* Start Interview Button */}
-      <div className="flex justify-end items-end">
-        <Link href={`/dashboard/interview/${interviewId || ""}/start`}>
-          <Button>Start Interview</Button>
-        </Link>
-      </div>
     </div>
   );
 }

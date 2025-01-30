@@ -11,7 +11,7 @@ function Header() {
   }, [path]);
 
   return (
-    <div className="flex p-4 items-center justify-between bg-secondary shadow-sm">
+    <div className="flex p-4 items-center justify-between bg-white shadow-sm">
       {/* Adjusted logo size and added responsiveness */}
       <img src={"/logo.svg"} className="w-40 h-auto" alt="logo" />{" "}
       {/* Tailwind utility classes for responsive logo */}
@@ -21,7 +21,7 @@ function Header() {
           className={`cursor-pointer transition-all ${
             path === "/dashboard"
               ? "text-black font-bold"
-              : "hover:text-primary hover:font-bold"
+              : "hover:text-orangeCustom hover:font-bold"
           }`}
         >
           Dashboard
@@ -32,7 +32,7 @@ function Header() {
           className={`cursor-pointer transition-all ${
             path === "/dashboard/Questions"
               ? "text-black font-bold"
-              : "hover:text-primary hover:font-bold"
+              : "hover:text-orangeCustom hover:font-bold"
           }`}
         >
           Questions
@@ -43,7 +43,7 @@ function Header() {
           className={`cursor-pointer transition-all ${
             path === "/dashboard/Upgrade"
               ? "text-black font-bold"
-              : "hover:text-primary hover:font-bold"
+              : "hover:text-orangeCustom hover:font-bold"
           }`}
         >
           Upgrade
@@ -54,7 +54,7 @@ function Header() {
           className={`cursor-pointer transition-all ${
             path === "/dashboard/how"
               ? "text-black font-bold"
-              : "hover:text-primary hover:font-bold"
+              : "hover:text-orangeCustom hover:font-bold"
           }`}
         >
           How it Works?

@@ -14,7 +14,7 @@ function InterviewItemCard({ interviewInfo }) {
   };
   return (
     <div className="border shadow-sm rounded-lg p-3">
-      <h2 className="font-bold text-primary">{interviewInfo?.jobPosition}</h2>
+      <h2 className="font-bold text-orangeCustom">{interviewInfo?.jobPosition}</h2>
       <h2 className="text-sm text-gray-600">
         {interviewInfo?.jobExperience} Years of Experience
       </h2>
@@ -31,7 +31,12 @@ function InterviewItemCard({ interviewInfo }) {
           Feedback
         </Button>
 
-        <Button size="sm" className="w-full" onClick={onStart}>
+        <Button
+          size="sm"
+          className="w-full bg-orangeCustom hover:bg-orangeCustomHover hover:text-black"
+          onClick={onStart}
+          c
+        >
           Start
         </Button>
       </div>

@@ -9,6 +9,7 @@ import InterviewItemCard from "./InterviewItemCard";
 function Interviewlist() {
   const { user } = useUser();
   const [interviewList, setInterviewList] = useState([]);
+  console.log(interviewList)
   useEffect(() => {
     user && GetInterviewList();
   }, [user]);

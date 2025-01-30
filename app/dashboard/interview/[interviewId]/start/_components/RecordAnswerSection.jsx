@@ -32,10 +32,12 @@ function RecordAnswerSection({
     continuous: true,
     useLegacyResults: false,
   });
+useEffect(() => {
   if (error) {
     toast(error);
-    return;
   }
+}, [error]);
+
 
   useEffect(() => {
     results.map((result) => {

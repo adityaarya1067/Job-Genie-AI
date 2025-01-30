@@ -9,6 +9,8 @@ export default {
   theme: {
     extend: {
       colors: {
+        orangeCustom: "#FF9F36",
+        orangeCustomHover: "#E68F30",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

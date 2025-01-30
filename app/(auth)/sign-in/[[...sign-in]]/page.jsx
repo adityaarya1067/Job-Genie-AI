@@ -31,7 +31,7 @@ export default function Page() {
               className="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl"
               style={{ textShadow: "0 0 2px black" }}
             >
-              Welcome to AI Interview Mocker
+              Welcome to Job Genie AI
             </h2>
 
             <p
