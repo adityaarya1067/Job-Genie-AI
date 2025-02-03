@@ -35,7 +35,7 @@ function AddNewInterview() {
     console.log(jobExperience, jobDesc, jobPosition);
 
     const InputPrompt = `
-      Job position: ${jobPosition},
+      // Job position: ${jobPosition},
       Job Description: ${jobDesc},
       Years of Experience: ${jobExperience},
       Based on the job position, job description, and years of experience,
