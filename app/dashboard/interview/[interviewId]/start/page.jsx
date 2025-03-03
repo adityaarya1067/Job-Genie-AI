@@ -82,7 +82,7 @@ function StartInterview({ params }) {
         {activeQuestionIndex !==
           mockInterviewQuestion?.interviewQuestions.length - 1 && (
           <Button
-            onClick={() => setActiveQuestionIndex(activeQuestionIndex + 1)}
+            onClick={() => setActiveQuestionIndex(activeQuestionIndex + 1) }
           >
             Next Question
           </Button>
